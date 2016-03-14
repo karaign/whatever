@@ -1,0 +1,13 @@
+<div class="container" id="posts">
+  <div class="row">
+    <div class="col-md-3">
+      <p>WIP</p>
+    </div>
+    <div class="col-md-9">
+      <post-preview ng-repeat="post in vm.posts" post="post"/>
+      <div infinite-scroll="vm.nextPage()" infinite-scroll-disabled="vm.busy" infinite-scroll-distance="0.25">
+        <p class="text-muted">{{vm.loadedAll? "that's all!" : '...loading...'}}</p>
+      </div>
+    </div>
+  </div> 
+</div>

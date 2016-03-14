@@ -1,0 +1,22 @@
+<div>
+  <h3>
+    {{post.title}}
+    <br/>
+    <small>
+      <span am-time-ago="post.date"></span>
+      <span ng-if="!author"> by <a ui-sref="user({name: post.author.name})">
+        {{post.author.displayName}}</a></span>
+    </small>
+  </h3>
+  <div btf-markdown="post.cut"></div>
+  <p class="post-footer">
+    <a ui-sref="post({name: author.name || post.author.name, slug: post.slug})">Read the rest…</a>
+    <span class="pull-right hidden-xs">
+      <small class="glyphicon glyphicon-tag" aria-label="Tags"></small>
+      <span class="label label-default" ng-repeat="tag in post.tags">
+        {{tag}}
+      </span>
+    </span>
+  </p>
+  <hr/>
+</div>

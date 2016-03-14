@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="thumbnail">
+        <img class="img-responsive" ng-src="{{vm.user.avatar}}"/>
+        <div class="caption">
+          <h4>{{vm.user.displayName}} <small>@{{vm.user.name}}</small></h4>
+          <p>{{vm.user.about}}</p>
+          <p>
+          <div class="btn-group">
+            <button type="button" ng-click="vm.showFollowers()" class="btn btn-link">
+              Followers<span class="badge">{{vm.user.stats.followers}}</span>
+            </button>
+            <button type="button" ng-click="vm.showFollowing()" class="btn btn-link">
+              Following<span class="badge">{{vm.user.stats.following}}</span>
+            </button>
+          </div>
+          </p>
+          <p ng-if="vm.isLoggedIn && !vm.isSelf">
+            <button class="btn btn-default" ng-if="!vm.isFollowed" ng-click="vm.follow()">
+              <span class="glyphicon glyphicon-plus"></span>
+              Follow
+            </button>
+            <span ng-if="vm.isFollowed" ng-mouseover="_over = true" ng-mouseleave="_over = false">
+              <button class="btn btn-success" ng-show="!_over">
+                <span class="glyphicon glyphicon-ok"></span> Following
+              </button>
+              <button class="btn btn-danger" ng-show="_over" ng-click="vm.unfollow()">
+                <span class="glyphicon glyphicon-minus"></span> Unfollow
+              </button>
+            </span>
+          </p>
+          <p class="text-success" ng-if="vm.isSelf">This is you.</p>
+          <p class="text-info" ng-if="!vm.isLoggedIn"><a ui-sref="login()">Log in</a>
+             or <a ui-sref="signup()">sign up</a> to be able to follow users.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="alert alert-info" ng-if="vm.posts.length === 0">
+        There aren't any posts here yet.
+      </div>
+      <post-preview ng-repeat="post in vm.posts" post="post" author="vm.user"></post-preview>
+      <uib-pager ng-model="vm.currentPage" ng-change="vm.loadPosts()" items-per-page="vm.perPage" total-items="vm.totalPosts"  
+       next-text="Older →" previous-text="← Newer" ng-if="vm.posts.length > 0"></uib-pager>
+    </div>
+  </div>
+</div>
