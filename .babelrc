@@ -1,5 +1,4 @@
 {
-  "presets": [
-    "nodejs-lts"
-  ]
+  "presets": ["es2015"],
+  "plugins": ["transform-class-properties"]
 }
