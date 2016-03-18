@@ -1,6 +1,6 @@
 'use strict';
 
-function PostCtrl($stateParams, Post) {
+function PostCtrl($stateParams, Post, notifier) {
   var name = $stateParams.name,
       slug = $stateParams.slug;
       
