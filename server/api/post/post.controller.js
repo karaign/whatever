@@ -139,6 +139,7 @@ export function destroy(req, res) {
   Post.findById(req.params.id).exec()
     .then(checkEntity())
     .then(checkUserRights(req.user))
-    .then(removeEntity(res))
+    .then(removeEntity())
+    .then(respond(res, 204))
     .catch(handleError(res));
 }

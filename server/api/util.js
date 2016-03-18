@@ -34,19 +34,14 @@ export function saveUpdates(updates) {
 }
 
 /**
- * Returns a function that removes the entity from the DB
- * and sends the response.
+ * Returns a function that removes the entity from the DB.
  * 
- * @param {express.response} res
  * @returns {Function}
  */
-export function removeEntity(res) {
+export function removeEntity() {
   return function(entity) {
     if (entity) {
-      return entity.remove().exec()
-        .then(() => {
-          res.status(204).end();
-        });
+      return entity.remove();
     }
   };
 }

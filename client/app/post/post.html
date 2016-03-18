@@ -19,6 +19,9 @@
       <p>
         <span class="label label-default" ng-repeat="tag in vm.post.tags">{{tag}}</span>
       </p>
+      <p>
+        <button type="button" class="btn btn-danger" ng-if="vm.editPermission" ng-click="vm.delete()">Delete</button>
+      </p>
     </div>
   </div>
 </div>
