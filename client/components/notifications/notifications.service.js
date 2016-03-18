@@ -1,3 +1,5 @@
+'use strict';
+
 function notifier() {
   var notifications = [];
   
