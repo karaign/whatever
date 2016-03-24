@@ -5,17 +5,30 @@ angular.module('whateverApp')
     return {
       templateUrl: 'components/markdown-editor/markdown-editor.html',
       restrict: 'E',
+      replace: true,
       scope: {
-        ngModel: '='
+        api: '=',
+        config: '='
       },
       link: function (scope, element, attrs) {
-        var mde = new SimpleMDE({
+        const defaults = {
+          initialValue: scope.model,
+          promptURLs: true,
+          forceSync: true,
           element: element.find('textarea')[0],
-          previewRender(text) {
-            var converter = new Showdown.converter();
-            return converter.makeHtml(text);
-          }
-        });
+          spellChecker: false,
+          toolbar: ['bold', 'italic', 'strikethrough',
+           '|', 'heading-1', 'heading-2', 'heading-3',
+           '|', 'quote', 'code',
+           '|', 'unordered-list', 'ordered-list',
+           '|', 'link', 'image', 'table',
+           '|', 'preview', 'guide']
+        };
+        
+        var mde = new SimpleMDE(
+          angular.extend(defaults, scope.config || {})
+        );
+        scope.api = mde;
       }
     };
   });

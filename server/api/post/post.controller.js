@@ -116,7 +116,7 @@ export function create(req, res) {
   var post = new Post(req.body);
   post.author = req.user;
   post.date = Date.now();
-  Post.save(post)
+  post.save()
     .then(respond(res, 201))
     .catch(handleError(res));
 }

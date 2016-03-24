@@ -11,9 +11,11 @@ angular.module('whateverApp', [
   'ui.bootstrap',
   'validation.match',
   'infinite-scroll',
-  'btford.markdown',
+  'hc.marked',
   'angularMoment',
-  'angular-bind-html-compile'
+  'angular-bind-html-compile',
+  'ngPatternRestrict',
+  'ngTagsInput'
 ])
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider

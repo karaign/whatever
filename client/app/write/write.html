@@ -1,16 +1,24 @@
 <div class="container">
-  <form ng-submit="">
+  <form ng-submit="vm.submit()">
     <div class="form-group">
       <label for="title">Title</label>
       <input type="text" id="title" class="form-control" ng-model="vm.title"/>
     </div>
-    <div uib-collapse="collapsed" class="form-group">
+    <div class="form-group">
       <label for="slug">URL</label>
       <div class="input-group">
-        <span class="input-group-addon">/@{{vm.me.name}}/</span>
-        <input type="text" id="slug" class="form-control" placeholder="{{vm.slugify(vm.title)}}" ng-model="vm.slug"/>
+        <span class="input-group-addon">@{{vm.me.name}}/</span>
+        <input type="text" id="slug" class="form-control" placeholder="{{vm.slugifyTitle()}}" ng-model="vm.slug"
+        pattern="^[a-z\d-]{0,}$" ng-pattern-restrict/>
       </div>
     </div>
-    <markdown-editor></markdown-editor>
+    <markdown-editor api="vm.editor"></markdown-editor>
+    <div class="form-group">
+      <label for="tags">Tags</label>
+      <tags-input ng-model="vm.tags"></tags-input>
+    </div>
+    <p>
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </p>
   </form>
 </div>

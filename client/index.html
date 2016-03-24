@@ -14,6 +14,7 @@
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
       <link rel="stylesheet" href="bower_components/simplemde/dist/simplemde.min.css" />
+      <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -21,6 +22,8 @@
       <!-- injector:css -->
       <!-- endinjector -->
     <!-- endbuild -->
+    <!-- custom -->
+    <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.bootstrap.min.css">
   </head>
   <body ng-app="whateverApp">
     <!--[if lt IE 7]>
@@ -62,11 +65,13 @@
       <script src="bower_components/moment/moment.js"></script>
       <script src="bower_components/angular-moment/angular-moment.js"></script>
       <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
-      <script src="bower_components/showdown/src/showdown.js"></script>
-      <script src="bower_components/angular-markdown-directive/markdown.js"></script>
       <script src="bower_components/angular-bind-html-compile/angular-bind-html-compile.js"></script>
       <script src="bower_components/simplemde/dist/simplemde.min.js"></script>
       <script src="bower_components/slug/slug.js"></script>
+      <script src="bower_components/ng-pattern-restrict/src/ng-pattern-restrict.js"></script>
+      <script src="bower_components/marked/lib/marked.js"></script>
+      <script src="bower_components/angular-marked/dist/angular-marked.js"></script>
+      <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js(.tmp) app/app.js -->
