@@ -1,4 +1,5 @@
 'use strict';
+/* global SimpleMDE */
 
 angular.module('whateverApp')
   .directive('markdownEditor', function () {
@@ -10,7 +11,7 @@ angular.module('whateverApp')
         api: '=',
         config: '='
       },
-      link: function (scope, element, attrs) {
+      link: function (scope, element) {
         const defaults = {
           initialValue: scope.model,
           promptURLs: true,
@@ -24,10 +25,11 @@ angular.module('whateverApp')
            '|', 'link', 'image', 'table',
            '|', 'preview', 'guide']
         };
-        
+
         var mde = new SimpleMDE(
           angular.extend(defaults, scope.config || {})
         );
+
         scope.api = mde;
       }
     };

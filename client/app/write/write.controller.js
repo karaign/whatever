@@ -21,7 +21,7 @@ class WriteCtrl {
       body: this.editor.value(),
       title: this.title,
       slug: this.slug || this.slugifyTitle(),
-      tags: this.tags
+      tags: this.tags.map(t => t.text)
     }, res => {
       this.state.go('post', {name: this.me.name, slug: res.slug});
     });

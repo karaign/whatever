@@ -19,17 +19,9 @@ import {
  * if the user isn't an admin or the post's author.
  */
 function checkUserRights(user) {
-  
-  function isAuthor(user, post) {
-    return post.author.equals(user._id);
-  }
-  
-  function isAdmin(user) {
-    return user.role === 'admin';
-  }
-  
   return function(post) {
-    if (isAuthor(user, post) || isAdmin(user)) {
+    if (post.author.equals(user._id) ||
+        user.role === 'admin') {
       return post;
     } else {
       throw new HTTPError(403);
@@ -39,14 +31,13 @@ function checkUserRights(user) {
 
 
 /**
- * Retrieves a user's personal feed. 
+ * Retrieves a user's personal feed.
  */
 export function getFeed(req, res) {
     var page = Number(req.query.page)
-    
+
     Post.paginate({author: {$in: req.user.following}}, {
-      page,
-      populate: 'author'
+      page, populate: 'author'
     })
     .then(respond(res))
     .catch(handleError(res))
@@ -71,7 +62,7 @@ export function getByUser (req, res) {
  */
 export function getByUserAndSlug(req, res) {
   var slug = req.params.slug;
-  
+
   User.findOne({name: req.params.name}).exec()
     .then(checkEntity())
     .then(author =>
@@ -95,6 +86,29 @@ export function getNewest(req, res) {
     .sort({date: 'descending'})
     .limit(count)
     .exec()
+    .then(respond(res))
+    .catch(handleError(res));
+}
+
+/**
+ * Finds posts by name, contents and/or tags.
+ */
+export function search(req, res) {
+  var qs = req.query;
+  var page = Number(qs.page);
+  var query = {};
+
+  if (qs.tags) {
+    query.tags = {$in: qs.tags.split(',')};
+  }
+  if (qs.title) {
+    query.title = {$text: {$search: qs.title}};
+  }
+  if (qs.body) {
+    query.body = {$text: {$search: qs.body}};
+  }
+
+  Post.paginate(query, {page, populate: 'author'})
     .then(respond(res))
     .catch(handleError(res));
 }

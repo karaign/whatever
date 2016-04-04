@@ -15,7 +15,7 @@ router.get('/by/:name/:slug', controller.getByUserAndSlug);
 router.get('/:id', controller.show);
 
 //router.get('/tag', controller.getPopularTags);
-//router.get('/tag/:tag', controller.getByTag);
+router.get('/search', controller.search);
 
 router.post('/', auth.isAuthenticated(), controller.create);
 router.put('/:id', auth.isAuthenticated(), controller.edit);

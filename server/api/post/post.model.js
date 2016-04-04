@@ -14,7 +14,8 @@ const slugOptions = {
 var PostSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    index: 'text'
   },
   slug: {
     type: String,
@@ -30,7 +31,8 @@ var PostSchema = new mongoose.Schema({
   comments: [String],
   body: {
     type: String,
-    required: true
+    required: true,
+    index: 'text'
   },
   author: {
     type: mongoose.Schema.ObjectId,
@@ -63,26 +65,26 @@ PostSchema.set('toJSON', {
 
 PostSchema
   .pre('validate', function(next) {
-    
+
     if (isEmpty(this.slug)) {
       this.slug = makeSlug(this.title, slugOptions);
     }
-    
+
     if (isEmpty(this.cut)) {
       this.cut = this.body.split('\n\n')
         .slice(0, 2)
         .join('\n\n');
     }
-    
+
     if (this.cut.length > 1000) {
       this.cut = this.cut.slice(0, 1000) + ' **(...)**';
     }
-    
+
     this.tags = removeDuplicates(this.tags);
-    
+
     next();
   });
-  
+
 // Ensure that slug is unique among one user's posts
 PostSchema
   .path('slug')
@@ -90,5 +92,5 @@ PostSchema
     this.constructor.findOne({author: this.author, slug: value}).exec()
       .then(post => respond(post? false : true));
   });
-  
+
 export default mongoose.model('Post', PostSchema);

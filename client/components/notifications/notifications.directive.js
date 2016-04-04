@@ -6,7 +6,7 @@ angular.module('whateverApp')
       templateUrl: 'components/notifications/notifications.html',
       restrict: 'E',
       controller($scope, notifier) {
-        $scope.alerts = notifier.get();
+        $scope.alerts = notifier.list;
         $scope.dismiss = notifier.dismiss;
       }
     };
