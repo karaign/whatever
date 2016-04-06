@@ -44,6 +44,7 @@ var PostSchema = new mongoose.Schema({
 
 paginatePlugin.paginate.options = {
   select: '-body -comments',
+  populate: 'author',
   sort: {date: 'descending'},
   limit: postsPerPage
 };

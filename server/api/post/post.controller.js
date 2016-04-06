@@ -33,9 +33,9 @@ function checkUserRights(user) {
 export function getFeed(req, res) {
   var page = Number(req.query.page);
 
-  Post.paginate({author: {$in: req.user.following}}, {
-    page, populate: 'author'
-  })
+  Post.paginate({
+    author: {$in: req.user.following}
+  }, {page})
     .then(respond(res))
     .catch(handleError(res));
 }
@@ -76,36 +76,41 @@ export function getByUserAndSlug(req, res) {
  * Retrieves newest posts by all users.
  */
 export function getNewest(req, res) {
-  const count = 5;
-  Post.find()
-    .populate('author')
-    .select('-body -comments')
-    .sort({date: 'descending'})
-    .limit(count)
-    .exec()
+  Post.paginate({}, {page: 1})
     .then(respond(res))
     .catch(handleError(res));
 }
 
 /**
- * Finds posts by name, contents and/or tags.
+ * Finds posts that have a certain tag
+ * (or multiple tags, separated by commas)
  */
-export function search(req, res) {
+export function getByTags(req, res) {
+  var page = Number(req.query.page);
+  var tags = req.params.tags.split(',');
+  
+  Post.paginate({
+    tags: {$in: tags}
+  }, {page})
+    .then(respond(res))
+    .catch(handleError(res));
+}
+
+/**
+ * Finds posts by title and/or contents.
+ */
+export function textSearch(req, res) {
   var qs = req.query;
   var page = Number(qs.page);
-  var query = {};
-
-  if (qs.tags) {
-    query.tags = {$in: qs.tags.split(',')};
+  
+  function search(str) {
+    if (str) return {$text: {$search: str}};
   }
-  if (qs.title) {
-    query.title = {$text: {$search: qs.title}};
-  }
-  if (qs.body) {
-    query.body = {$text: {$search: qs.body}};
-  }
-
-  Post.paginate(query, {page, populate: 'author'})
+  
+  Post.paginate({
+    title: search(qs.title),
+    body: search(qs.body)
+  }, {page})
     .then(respond(res))
     .catch(handleError(res));
 }
