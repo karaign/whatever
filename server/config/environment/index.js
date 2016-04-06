@@ -1,5 +1,3 @@
-'use strict';
-
 var path = require('path');
 var _ = require('lodash');
 
@@ -13,7 +11,7 @@ function requiredProcessEnv(name) {
 // All configurations will extend these options
 // ============================================
 var all = {
-  env: process.env.NODE_ENV,
+  env: requiredProcessEnv('NODE_ENV'),
 
   // Root path of server
   root: path.normalize(__dirname + '/../../..'),

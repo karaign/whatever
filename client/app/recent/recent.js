@@ -1,7 +1,5 @@
-'use strict';
-
 angular.module('whateverApp')
-  .config(function ($stateProvider) {
+  .config(function($stateProvider) {
     $stateProvider
       .state('recent', {
         url: '/recent',

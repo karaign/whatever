@@ -1,8 +1,7 @@
-'use strict';
 /* global SimpleMDE */
 
 angular.module('whateverApp')
-  .directive('markdownEditor', function () {
+  .directive('markdownEditor', function() {
     return {
       templateUrl: 'components/markdown-editor/markdown-editor.html',
       restrict: 'E',
@@ -11,7 +10,7 @@ angular.module('whateverApp')
         api: '=',
         config: '='
       },
-      link: function (scope, element) {
+      link: function(scope, element) {
         const defaults = {
           initialValue: scope.model,
           promptURLs: true,

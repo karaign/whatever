@@ -1,11 +1,7 @@
-'use strict';
-
 class SignupController {
-  /* nonstandard */
   user = {};
   errors = {};
   submitted = false;
-  /* /nonstandard */
 
   constructor(Auth, $state) {
     this.Auth = Auth;

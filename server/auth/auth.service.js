@@ -1,6 +1,4 @@
-'use strict';
-
-import passport from 'passport';
+//import passport from 'passport';
 import config from '../config/environment';
 import jwt from 'jsonwebtoken';
 import expressJwt from 'express-jwt';

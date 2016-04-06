@@ -1,5 +1,3 @@
-'use strict';
-
 import crypto from 'crypto';
 import mongoose from 'mongoose';
 
@@ -209,33 +207,33 @@ UserSchema.methods = {
       }
     });
   },
-  
+
   /**
    * Find the user's followers
-   * 
+   *
    * @return {Promise}
    * @api public
    */
   findFollowers() {
-    return this.model('User').find({following: this})
+    return this.model('User').find({following: this});
   },
-  
+
   /**
-   * Get the number of the user's followers and those followed by the user
-   * 
+   * Get the number of the user's followers and those followed by the use
+   *
    * @return {Promise}
    * @api public
    */
   getFollowerStats() {
     return this.model('User').count({following: this})
       .then(count => ({
-        "followers": count,
-        "following": this.following.length
+        'followers': count,
+        'following': this.following.length
       }));
   },
   /**
-   * Attaches follower stats to profile and resolves a promise with it
-   * 
+   * Attaches follower stats to profile and resolves a promise with i
+   *
    * @return {Promise}
    * @api public
    */

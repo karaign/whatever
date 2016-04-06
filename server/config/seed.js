@@ -3,7 +3,6 @@
  * to disable, edit config/environment/index.js, and set `seedDB: false`
  */
 
-'use strict';
 import User from '../api/user/user.model';
 import Post from '../api/post/post.model';
 
@@ -39,7 +38,7 @@ const defaultAdmin = {
 };
 
 /********************************************
- * Creating sample data 
+ * Creating sample data
  */
 
 // clearing the database
@@ -60,7 +59,7 @@ function randomizeUsers() {
   var result = [];
   while (result.length < users) {
     let first = name.firstName(),
-        last  = name.lastName();
+      last  = name.lastName();
     result.push({
       provider: 'local',
       password: 'test',

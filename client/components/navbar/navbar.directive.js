@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('whateverApp')
   .directive('navbar', () => ({
     templateUrl: 'components/navbar/navbar.html',

@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('whateverApp.auth', [
   'whateverApp.constants',
   'whateverApp.util',

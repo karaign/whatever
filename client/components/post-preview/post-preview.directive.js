@@ -1,7 +1,5 @@
-'use strict';
-
 angular.module('whateverApp')
-  .directive('postPreview', function () {
+  .directive('postPreview', function() {
     return {
       templateUrl: 'components/post-preview/post-preview.html',
       restrict: 'E',

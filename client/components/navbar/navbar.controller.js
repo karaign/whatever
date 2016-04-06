@@ -1,7 +1,4 @@
-'use strict';
-
 class NavbarController {
-  /* nonstandard */
   menu = [{
     'title': 'Home',
     'state': 'main'
@@ -11,7 +8,6 @@ class NavbarController {
   }];
 
   isCollapsed = true;
-  /* /nonstandard */
 
   constructor(Auth) {
     this.isLoggedIn = Auth.isLoggedIn;

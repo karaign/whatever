@@ -1,7 +1,3 @@
-'use strict';
-
-(function() {
-
 function authInterceptor($rootScope, $q, $cookies, $injector, Util) {
   var state;
   return {
@@ -28,5 +24,3 @@ function authInterceptor($rootScope, $q, $cookies, $injector, Util) {
 
 angular.module('whateverApp.auth')
   .factory('authInterceptor', authInterceptor);
-
-})();

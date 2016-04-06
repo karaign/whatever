@@ -6,9 +6,9 @@ public
 .directory
 .yo-rc.json
 e2e
-*.spec.js
-*.events.js
-*.integration.js
+**/*.spec.js
+**/*.events.js
+**/*.integration.js
 karma.conf.js
 mocha.conf.js
 mocha.global.js
@@ -18,3 +18,4 @@ dist
 /server/config/local.env.js
 npm-debug.log
 coverage
+gulpfile.js

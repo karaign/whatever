@@ -1,7 +1,5 @@
-'use strict';
-
 import User from './user.model';
-import passport from 'passport';
+// import passport from 'passport';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 import HTTPError from 'node-http-error';
@@ -48,7 +46,7 @@ export function create(req, res, next) {
  */
 export function getByName(req, res) {
   var name = req.params.name;
-  
+
   User.findOne({name}).exec()
     .then(checkEntity())
     .then(user => user.getProfileAsync())
@@ -91,7 +89,7 @@ export function changePassword(req, res, next) {
     .then(user => {
       if (user.authenticate(oldPass)) {
         user.password = newPass;
-        return user.save()
+        return user.save();
       } else {
         throw new HTTPError(403);
       }
@@ -125,11 +123,11 @@ export function authCallback(req, res, next) {
  */
 export function followUser(req, res) {
   var followedId = req.params.id;
-  
+
   if (req.user._id.equals(followedId)) {
     return respond(res, 422)();
   }
-  
+
   req.user.following.addToSet(followedId);
   req.user.save()
     .then(() => User.findById(followedId).exec())
@@ -143,7 +141,7 @@ export function followUser(req, res) {
  */
 export function unfollowUser(req, res) {
   var followedId = req.params.id;
-  
+
   req.user.following.remove(followedId);
   req.user.save()
     .then(() => User.findById(followedId).exec())
@@ -157,7 +155,7 @@ export function unfollowUser(req, res) {
  */
 export function getFollowers(req, res) {
   var userId = req.params.id;
-  
+
   User.findById(userId).exec()
     .then(checkEntity())
     .then(user => user.findFollowers())
@@ -171,7 +169,7 @@ export function getFollowers(req, res) {
  */
 export function getFollowing(req, res) {
   var userId = req.params.id;
-  
+
   User.findById(userId)
     .populate('following')
     .exec()

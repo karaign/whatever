@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('whateverApp')
   .directive('footer', function() {
     return {

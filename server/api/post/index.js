@@ -1,7 +1,5 @@
-'use strict';
-
 import {Router} from 'express';
-import * as controller from './post.controller'
+import * as controller from './post.controller';
 import * as auth from '../../auth/auth.service';
 
 var router = new Router();

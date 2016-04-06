@@ -3,7 +3,7 @@ import HTTPError from 'node-http-error';
 
 /**
  * Returns a function that sends the response.
- * 
+ *
  * @param {express.response} res
  * @param {number} [statusCode]
  * @returns {Function}
@@ -11,7 +11,7 @@ import HTTPError from 'node-http-error';
 export function respond(res, statusCode = 200) {
   return function(entity) {
     res.status(statusCode);
-    entity?
+    entity ?
       res.json(entity) :
       res.end();
   };
@@ -19,7 +19,7 @@ export function respond(res, statusCode = 200) {
 
 /**
  * Returns a function that saves the updates to the DB.
- * 
+ *
  * @param {Object} updates
  * @returns {Function}
  */
@@ -35,7 +35,7 @@ export function saveUpdates(updates) {
 
 /**
  * Returns a function that removes the entity from the DB.
- * 
+ *
  * @returns {Function}
  */
 export function removeEntity() {
@@ -48,9 +48,9 @@ export function removeEntity() {
 
 /**
  * Returns an error handler which sends an error response.
- * If the error is an HTTPError, its code is used 
- * instead of the one passed as an argument. 
- * 
+ * If the error is an HTTPError, its code is used
+ * instead of the one passed as an argument.
+ *
  * @param {express.response} res
  * @param {number} [statusCode=500]
  * @returns {Function}
@@ -63,7 +63,7 @@ export function handleError(res, statusCode = 500) {
 
 /**
  * Returns a function which throws an HTTPError if an entity isn't there.
- * 
+ *
  * @param {number} [statusCode=404]
  * @returns {Function}
  */
@@ -73,6 +73,6 @@ export function checkEntity(statusCode = 404) {
       throw new HTTPError(statusCode);
     }
     return entity;
-  }
+  };
 }
 

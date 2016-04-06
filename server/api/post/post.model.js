@@ -1,15 +1,13 @@
-'use strict';
-
 import mongoose from 'mongoose';
 import makeSlug from 'slug';
 import {uniq as removeDuplicates, isEmpty} from 'lodash';
 import paginatePlugin from 'mongoose-paginate';
-import {postsPerPage} from '../../config/environment'
+import {postsPerPage} from '../../config/environment';
 
 const slugOptions = {
   replacement: '-',
   lower: true
-}
+};
 
 var PostSchema = new mongoose.Schema({
   title: {
@@ -90,7 +88,7 @@ PostSchema
   .path('slug')
   .validate(function(value, respond) {
     this.constructor.findOne({author: this.author, slug: value}).exec()
-      .then(post => respond(post? false : true));
+      .then(post => respond(post ? false : true));
   });
 
 export default mongoose.model('Post', PostSchema);

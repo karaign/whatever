@@ -1,12 +1,10 @@
-'use strict';
-
 angular.module('whateverApp')
-  .config(function ($stateProvider) {
+  .config(function($stateProvider) {
     $stateProvider
       .state('write', {
         url: '/write',
         templateUrl: 'app/write/write.html',
-        controller: 'WriteCtrl',
+        controller: 'WriteController',
         controllerAs: 'vm'
       });
   });

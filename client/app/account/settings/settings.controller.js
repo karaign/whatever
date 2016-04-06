@@ -1,5 +1,3 @@
-'use strict';
-
 class SettingsController {
   constructor(Auth) {
     this.errors = {};

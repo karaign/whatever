@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('whateverApp.admin')
   .config(function($stateProvider) {
     $stateProvider

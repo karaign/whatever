@@ -1,9 +1,6 @@
-'use strict';
-
-class WriteCtrl {
-  /* nonstandard */
+class WriteController {
   title = 'Your title here';
-  /* /nonstandard */
+  
   constructor(Auth, $state, Post) {
     Auth.isLoggedIn(loggedIn => {
       if (!loggedIn) $state.go('login');
@@ -29,5 +26,5 @@ class WriteCtrl {
 }
 
 angular.module('whateverApp')
-  .controller('WriteCtrl', WriteCtrl);
+  .controller('WriteController', WriteController);
 

@@ -1,8 +1,7 @@
+/* eslint-disable */
 /**
  * Socket.io configuration
  */
-'use strict';
-
 import config from './environment';
 
 // When the user disconnects.. perform this

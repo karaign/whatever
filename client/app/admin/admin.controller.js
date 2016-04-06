@@ -1,7 +1,3 @@
-'use strict';
-
-(function() {
-
 class AdminController {
   constructor(User) {
     // Use the User $resource to fetch all users
@@ -17,4 +13,3 @@ class AdminController {
 angular.module('whateverApp.admin')
   .controller('AdminController', AdminController);
 
-})();

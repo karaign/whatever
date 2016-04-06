@@ -1,7 +1,3 @@
-'use strict';
-
-(function() {
-
 function UserResource($resource) {
   var User = $resource('/api/users/:id/:controller', {
     id: '@_id'
@@ -39,9 +35,9 @@ function UserResource($resource) {
     unfollow: {
       method: 'PUT',
       params: {controller: 'unfollow'}
-    },
+    }
   });
-  
+
   function arrayGetter(propertyName) {
     return function(callback, onError) {
       if (this[propertyName]) {
@@ -56,16 +52,14 @@ function UserResource($resource) {
       }
     };
   }
-  
+
   angular.extend(User.prototype, {
     $getFollowers: arrayGetter('followers'),
     $getFollowing: arrayGetter('following')
   });
-  
+
   return User;
 }
 
 angular.module('whateverApp.auth')
   .factory('User', UserResource);
-
-})();

@@ -1,17 +1,13 @@
-'use strict';
-
-class MainCtrl {
-  /* nonstandard */
+class MainController {
   currentPage = 0;
   posts = [];
   busy = false;
   loadedAll = false;
-  /* /nonstandard */
-  
+
   constructor(Post, Auth, $state) {
     this.Post = Post;
     this.nextPage();
-    
+
     Auth.getCurrentUser(me => {
       this.me = me;
       if (me.following.length === 0) {
@@ -21,7 +17,7 @@ class MainCtrl {
   }
   /**
    * Loads a new page of posts from the server and appends
-   * them to the posts array. 
+   * them to the posts array.
    */
   nextPage() {
     if (this.loadedAll) {
@@ -34,7 +30,7 @@ class MainCtrl {
       this.busy = false;
       if (res.page == res.pages) {
         this.loadedAll = true;
-      }     
+      }
       this.posts = this.posts.concat(res.docs);
       this.currentPage = res.page;
     });
@@ -42,5 +38,5 @@ class MainCtrl {
 }
 
 angular.module('whateverApp')
-  .controller('MainCtrl', MainCtrl);
+  .controller('MainController', MainController);
 

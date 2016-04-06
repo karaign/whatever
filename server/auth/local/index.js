@@ -1,5 +1,3 @@
-'use strict';
-
 import express from 'express';
 import passport from 'passport';
 import {signToken} from '../auth.service';
@@ -18,7 +16,7 @@ router.post('/', function(req, res, next) {
 
     var token = signToken(user._id, user.role);
     res.json({ token });
-  })(req, res, next)
+  })(req, res, next);
 });
 
 export default router;

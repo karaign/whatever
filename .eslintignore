@@ -1,0 +1,3 @@
+client/app/app.constant.js
+**/*.spec.js
+**/*.integration.js

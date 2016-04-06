@@ -1,7 +1,5 @@
-'use strict';
-
 angular.module('whateverApp')
-  .directive('notifications', function () {
+  .directive('notifications', function() {
     return {
       templateUrl: 'components/notifications/notifications.html',
       restrict: 'E',

@@ -1,7 +1,3 @@
-'use strict';
-
-(function() {
-
 /**
  * The Util service is for thin, globally reusable, utility functions
  */
@@ -61,5 +57,3 @@ function UtilService($window) {
 
 angular.module('whateverApp.util')
   .factory('Util', UtilService);
-
-})();

@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('whateverApp', [
   'whateverApp.auth',
   'whateverApp.admin',

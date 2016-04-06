@@ -1,15 +1,12 @@
-'use strict';
-
-class PostCtrl {
-  /* nonstandard */
+class PostController {
   editPermission = false;
-  /* /nonstandard */
+
   constructor($stateParams, $state, Post, Auth, Modal, notifier) {
-    var name = $stateParams.name,
-        slug = $stateParams.slug;
-    
+    var name = $stateParams.name;
+    var slug = $stateParams.slug;
+
     this.notifier = notifier;
-    this.Modal = Modal;   
+    this.Modal = Modal;
     this.$state = $state;
     this.post = Post.byUserAndSlug({name, slug});
     this.post.$promise
@@ -34,4 +31,4 @@ class PostCtrl {
 }
 
 angular.module('whateverApp')
-  .controller('PostCtrl', PostCtrl);
+  .controller('PostController', PostController);

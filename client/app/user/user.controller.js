@@ -1,23 +1,19 @@
-'use strict';
-
-class UserCtrl {
-  /* nonstandard */
+class UserController {
   isSelf = false;
   isFollowed = false;
   isLoggedIn = true;
-  /* /nonstandard */
-  
+
   constructor($stateParams, $window, appConfig, Post, User, Modal, Auth) {
     this.userName = $stateParams.name;
     this.currentPage = $stateParams.page || 1;
     this.perPage = appConfig.postsPerPage;
-    
+
     this.openModal = Modal.userList();
     this.Post = Post;
     this.window = $window;
-    
+
     this.user = User.byName({name: this.userName});
-    
+
     this.user.$promise
       .then(() => Auth.isLoggedIn(null))
       .then(loggedIn => this.isLoggedIn = loggedIn)
@@ -31,7 +27,7 @@ class UserCtrl {
           this.isFollowed = true;
         }
       });
-    
+
     this.loadPosts();
   }
   /**
@@ -60,7 +56,7 @@ class UserCtrl {
    */
   showFollowing() {
     this.user.$getFollowing(users => {
-      this.openModal(`People followed by @${this.user.name}`, users);      
+      this.openModal(`People followed by @${this.user.name}`, users);
     });
   }
   /**
@@ -78,4 +74,4 @@ class UserCtrl {
 }
 
 angular.module('whateverApp')
-  .controller('UserCtrl', UserCtrl);
+  .controller('UserController', UserController);

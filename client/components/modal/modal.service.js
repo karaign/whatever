@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('whateverApp')
   .factory('Modal', function($rootScope, $uibModal) {
     /**
@@ -22,7 +20,7 @@ angular.module('whateverApp')
 
     // Public API here
     return {
-      
+
       /**
        * Create a function to show a list of users
        * @param  {Array} users
@@ -39,7 +37,7 @@ angular.module('whateverApp')
             modal: {
               dismissable: true,
               title, users,
-              html: 
+              html:
                `<div class="alert alert-info" ng-if="modal.users.length === 0">
                   This list is empty.
                 </div>

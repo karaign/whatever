@@ -1,10 +1,7 @@
-'use strict';
-
 import Post from './post.model';
 import User from '../user/user.model';
 
 import HTTPError from 'node-http-error';
-import {mapValues} from 'lodash';
 
 import {
   respond,
@@ -12,7 +9,7 @@ import {
   checkEntity,
   removeEntity,
   saveUpdates
-} from '../util'
+} from '../util';
 
 /**
  * Returns a function that throws 403 (Forbidden) error
@@ -26,7 +23,7 @@ function checkUserRights(user) {
     } else {
       throw new HTTPError(403);
     }
-  }
+  };
 }
 
 
@@ -34,19 +31,19 @@ function checkUserRights(user) {
  * Retrieves a user's personal feed.
  */
 export function getFeed(req, res) {
-    var page = Number(req.query.page)
+  var page = Number(req.query.page);
 
-    Post.paginate({author: {$in: req.user.following}}, {
-      page, populate: 'author'
-    })
+  Post.paginate({author: {$in: req.user.following}}, {
+    page, populate: 'author'
+  })
     .then(respond(res))
-    .catch(handleError(res))
+    .catch(handleError(res));
 }
 
 /**
  * Retrieves posts by a specific user.
  */
-export function getByUser (req, res) {
+export function getByUser(req, res) {
   var name = req.params.name;
   var page = Number(req.query.page);
 
