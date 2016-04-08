@@ -127,10 +127,8 @@ let styles = lazypipe()
 
 let transpileClient = lazypipe()
   .pipe(plugins.sourcemaps.init)
+  .pipe(plugins.iife)
   .pipe(plugins.babel) // client/.babelrc
-  .pipe(plugins.iife, {
-    useStrict: false // babel already did this
-  })
   .pipe(plugins.sourcemaps.write, '.');
 
 let transpileServer = lazypipe()
@@ -301,7 +299,7 @@ gulp.task('clean:tmp', () => del(['.tmp/**/*'], {
 
 gulp.task('start:client', cb => {
   whenServerReady(() => {
-    open('http://localhost:' + config.port);
+//    open ('http://localhost:' + config.port);
     cb();
   });
 });

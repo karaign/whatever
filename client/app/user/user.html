@@ -36,13 +36,6 @@
         </div>
       </div>
     </div>
-    <div class="col-md-9">
-      <div class="alert alert-info" ng-if="vm.posts.length === 0">
-        There aren't any posts here yet.
-      </div>
-      <post-preview ng-repeat="post in vm.posts" post="post" author="vm.user"></post-preview>
-      <uib-pager ng-model="vm.currentPage" ng-change="vm.loadPosts()" items-per-page="vm.perPage" total-items="vm.totalPosts"  
-       next-text="Older →" previous-text="← Newer" ng-if="vm.posts.length > 0"></uib-pager>
-    </div>
+    <post-list class="col-md-9" load="vm.nextPage"></post-list>
   </div>
 </div>

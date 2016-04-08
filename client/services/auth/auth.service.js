@@ -173,6 +173,15 @@ function AuthService($location, $http, $cookies, $q, appConfig, Util, User) {
      */
     getToken() {
       return $cookies.get('token');
+    },
+    /**
+     * Get user info, or null if the user isn't logged in
+     *
+     * @return {Promise|object|null}
+     */
+    resolveUser() {
+      return Auth.getCurrentUser(null)
+        .then(user => _.isEmpty(user) ? null : user);
     }
   };
 

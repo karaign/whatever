@@ -10,7 +10,7 @@
     </div>
     <div class="col-md-3">
       <p>
-        <span am-time-ago="vm.post.date"></span>
+        <time-label date="vm.post.date"></time-label>
         by <span class="h4">
         <a ui-sref="user({name: vm.post.author.name})">{{vm.post.author.displayName}}</a>
         <small> @{{vm.post.author.name}}</small>

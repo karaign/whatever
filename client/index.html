@@ -32,7 +32,6 @@
 
     <!-- Add your site or application content here -->
     <navbar></navbar>
-    <notifications></notifications>
     <div ui-view=""></div>
     <footer></footer>
 
@@ -78,8 +77,8 @@
       <script src="app/app.js"></script>
       <!-- injector:js -->
       <script src="app/admin/admin.module.js"></script>
-      <script src="components/auth/auth.module.js"></script>
-      <script src="components/util/util.module.js"></script>
+      <script src="services/auth/auth.module.js"></script>
+      <script src="services/util/util.module.js"></script>
       <script src="app/account/account.js"></script>
       <script src="app/account/login/login.controller.js"></script>
       <script src="app/account/settings/settings.controller.js"></script>
@@ -96,22 +95,24 @@
       <script src="app/user/user.js"></script>
       <script src="app/write/write.controller.js"></script>
       <script src="app/write/write.js"></script>
-      <script src="components/auth/auth.service.js"></script>
-      <script src="components/auth/interceptor.service.js"></script>
-      <script src="components/auth/router.decorator.js"></script>
-      <script src="components/auth/user.service.js"></script>
       <script src="components/footer/footer.directive.js"></script>
       <script src="components/markdown-editor/markdown-editor.directive.js"></script>
-      <script src="components/modal/modal.service.js"></script>
       <script src="components/mongoose-error/mongoose-error.directive.js"></script>
       <script src="components/navbar/navbar.controller.js"></script>
       <script src="components/navbar/navbar.directive.js"></script>
       <script src="components/notifications/notifications.directive.js"></script>
       <script src="components/notifications/notifications.service.js"></script>
-      <script src="components/post-preview/post-preview.directive.js"></script>
-      <script src="components/post/post.service.js"></script>
-      <script src="components/socket/socket.service.js"></script>
-      <script src="components/util/util.service.js"></script>
+      <script src="components/post-list/post-list.component.js"></script>
+      <script src="components/post-preview/post-preview.component.js"></script>
+      <script src="components/time-label/time-label.component.js"></script>
+      <script src="services/auth/auth.service.js"></script>
+      <script src="services/auth/interceptor.service.js"></script>
+      <script src="services/auth/router.decorator.js"></script>
+      <script src="services/auth/user.service.js"></script>
+      <script src="services/modal/modal.service.js"></script>
+      <script src="services/post/post.service.js"></script>
+      <script src="services/socket/socket.service.js"></script>
+      <script src="services/util/util.service.js"></script>
       <!-- endinjector -->
     <!-- endbuild -->
   </body>

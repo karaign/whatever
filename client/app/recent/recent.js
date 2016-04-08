@@ -6,7 +6,7 @@ angular.module('whateverApp')
         templateUrl: '/app/recent/recent.html',
         controllerAs: 'vm',
         controller: function(Post) {
-          this.posts = Post.recent();
+          this.res = Post.recent();
         }
       });
   });

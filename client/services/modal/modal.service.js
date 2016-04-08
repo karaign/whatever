@@ -12,7 +12,7 @@ angular.module('whateverApp')
       angular.extend(modalScope, scope);
 
       return $uibModal.open({
-        templateUrl: 'components/modal/modal.html',
+        templateUrl: 'services/modal/modal.html',
         windowClass: modalClass,
         scope: modalScope
       });

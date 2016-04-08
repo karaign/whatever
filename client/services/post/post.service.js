@@ -10,8 +10,7 @@ function PostResource($resource) {
     },
     recent: {
       method: 'GET',
-      url: '/api/posts/recent',
-      isArray: true
+      url: '/api/posts/recent'
     }
   });
 }

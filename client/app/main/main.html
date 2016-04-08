@@ -3,9 +3,6 @@
     <div class="col-md-3">
       <p>WIP</p>
     </div>
-    <div class="col-md-9" infinite-scroll="vm.nextPage()" infinite-scroll-disabled="vm.busy" infinite-scroll-distance="0.1">
-      <post-preview ng-repeat="post in vm.posts" post="post"></post-preview>
-      <p class="text-muted">{{vm.loadedAll? "that's all!" : '...loading...'}}</p>
-    </div>
-  </div> 
+  <post-list class="col-md-9" load="vm.nextPage"></post-list>
+  </div>
 </div>

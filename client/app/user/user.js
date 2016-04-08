@@ -2,10 +2,10 @@ angular.module('whateverApp')
   .config(function($stateProvider) {
     $stateProvider
       .state('user', {
-        url: '/@:name?page',
+        url: '/@:name',
         templateUrl: 'app/user/user.html',
         controller: 'UserController',
         controllerAs: 'vm',
-        authenticate: false
+        resolve: {me: Auth => Auth.resolveUser()}
       });
   });

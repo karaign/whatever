@@ -1,0 +1,12 @@
+<div infinite-scroll="$ctrl.nextPage()"
+     infinite-scroll-distance="0.1"
+     infinite-scroll-disabled="$ctrl.busy">
+    <div class="alert alert-info" ng-if="$ctrl.noPosts">
+      Nothing to show here yet!
+    </div>
+    <post-preview ng-repeat="post in $ctrl.posts" post="post">
+    </post-preview>
+    <p ng-if="!$ctrl.noPosts" class="text-muted">
+      {{$ctrl.loadedAll ? "that's all!" : "loading..."}}
+    </p>
+ </div>

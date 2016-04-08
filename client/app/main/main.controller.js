@@ -1,39 +1,8 @@
 class MainController {
-  currentPage = 0;
-  posts = [];
-  busy = false;
-  loadedAll = false;
+  nextPage = currentPage => this.Post.get({page: currentPage + 1}).$promise;
 
-  constructor(Post, Auth, $state) {
+  constructor(Post, me) {
     this.Post = Post;
-    this.nextPage();
-
-    Auth.getCurrentUser(me => {
-      this.me = me;
-      if (me.following.length === 0) {
-        $state.go('recent', {});
-      }
-    });
-  }
-  /**
-   * Loads a new page of posts from the server and appends
-   * them to the posts array.
-   */
-  nextPage() {
-    if (this.loadedAll) {
-      return;
-    }
-    this.busy = true;
-    this.Post.get({
-      page: this.currentPage + 1
-    }, res => {
-      this.busy = false;
-      if (res.page == res.pages) {
-        this.loadedAll = true;
-      }
-      this.posts = this.posts.concat(res.docs);
-      this.currentPage = res.page;
-    });
   }
 }
 

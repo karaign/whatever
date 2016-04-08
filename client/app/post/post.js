@@ -5,6 +5,7 @@ angular.module('whateverApp')
         url: '/@:name/:slug',
         templateUrl: 'app/post/post.html',
         controller: 'PostController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {me: Auth => Auth.resolveUser()}
       });
   });

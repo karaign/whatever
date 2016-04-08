@@ -1,6 +1,7 @@
+/* globals slug */
 class WriteController {
   title = 'Your title here';
-  
+
   constructor(Auth, $state, Post) {
     Auth.isLoggedIn(loggedIn => {
       if (!loggedIn) $state.go('login');
@@ -10,7 +11,6 @@ class WriteController {
     this.state = $state;
   }
   slugifyTitle() {
-    /* globals slug */
     return slug(this.title, {lower: true});
   }
   submit() {

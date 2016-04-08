@@ -1,46 +1,26 @@
 class UserController {
+  nextPage = currentPage => this.Post.byUser({
+    name: this.userName,
+    page: currentPage + 1
+  }).$promise;
+
   isSelf = false;
   isFollowed = false;
   isLoggedIn = true;
 
-  constructor($stateParams, $window, appConfig, Post, User, Modal, Auth) {
-    this.userName = $stateParams.name;
-    this.currentPage = $stateParams.page || 1;
-    this.perPage = appConfig.postsPerPage;
-
-    this.openModal = Modal.userList();
+  constructor($stateParams, Post, User, Modal, me) {
     this.Post = Post;
-    this.window = $window;
+    this.userName = $stateParams.name;
+    this.openModal = Modal.userList();
 
     this.user = User.byName({name: this.userName});
-
-    this.user.$promise
-      .then(() => Auth.isLoggedIn(null))
-      .then(loggedIn => this.isLoggedIn = loggedIn)
-      .then(() => Auth.getCurrentUser(null))
-      .then(me => {
-        if (!me) return;
-        if (me._id === this.user._id) {
-          this.isSelf = true;
-        }
-        if (me.following.indexOf(this.user._id) > -1) {
-          this.isFollowed = true;
-        }
-      });
-
-    this.loadPosts();
-  }
-  /**
-   * Loads the current page of posts.
-   */
-  loadPosts() {
-    this.Post.byUser({
-      name: this.userName,
-      page: this.currentPage
-    }, res => {
-      this.posts = res.docs;
-      this.totalPosts = res.total;
-      this.window.scrollTo(0, 0);
+    if (!me) {
+      this.isLoggedIn = false;
+    }
+    this.user.$promise.then(user => {
+      if (me && me._id == user._id) {
+        this.isSelf = true;
+      }
     });
   }
   /**
