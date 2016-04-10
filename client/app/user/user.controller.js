@@ -1,9 +1,4 @@
 class UserController {
-  nextPage = currentPage => this.Post.byUser({
-    name: this.userName,
-    page: currentPage + 1
-  }).$promise;
-
   isSelf = false;
   isFollowed = false;
   isLoggedIn = true;
@@ -14,15 +9,33 @@ class UserController {
     this.openModal = Modal.userList();
 
     this.user = User.byName({name: this.userName});
+
     if (!me) {
       this.isLoggedIn = false;
+      return;
     }
+
     this.user.$promise.then(user => {
-      if (me && me._id == user._id) {
+      if (me._id == user._id) {
         this.isSelf = true;
+      } else if (me.following.indexOf(user._id) > -1) {
+        this.isFollowed = true;
       }
     });
   }
+
+  /**
+   * @param {Number} currentPage
+   * @returns {Promise}
+   */
+  nextPage(currentPage) {
+    return this.Post.byUser({
+      name: this.userName,
+      page: currentPage + 1
+    }).$promise;
+  }
+
+
   /**
    * Shows a list of the user's followers.
    */

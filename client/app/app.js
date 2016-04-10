@@ -15,9 +15,19 @@ angular.module('whateverApp', [
   'ngPatternRestrict',
   'ngTagsInput'
 ])
-  .config(function($urlRouterProvider, $locationProvider) {
+  .config(function($urlRouterProvider, $locationProvider, markedProvider) {
     $urlRouterProvider
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
+
+    markedProvider.setOptions({
+      sanitize: true
+    });
+
+    markedProvider.setRenderer({
+      image(href, title, text) {
+        return `<img class="img-responsive" src="${href}" alt="${text}" title="${title || text}"/>`;
+      }
+    });
   });

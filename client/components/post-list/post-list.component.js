@@ -10,12 +10,11 @@ class PostListController {
     this.nextPage();
   }
 
+
   /**
-   * Calls the `load` function to retrieve the next page
-   * and append it to the posts array.
-   * The `load` function should accept the current page as an argument
-   * and return a promise.
-   */
+   * Loads the next page using the 'next-page' expression
+   * and appends it to the posts array.
+   **/
   nextPage() {
     if (this.loadedAll) {
       return;
@@ -23,7 +22,9 @@ class PostListController {
 
     this.busy = true;
 
-    this.load(this.currentPage).then(res => {
+    this.loadNextPage({
+      currentPage: this.currentPage
+    }).then(res => {
       if (res.total == 0) {
         this.noPosts = true;
       }
@@ -44,5 +45,5 @@ angular.module('whateverApp')
   .component('postList', {
     controller: PostListController,
     templateUrl: 'components/post-list/post-list.html',
-    bindings: {load: '<'}
+    bindings: {loadNextPage: '&nextPage'}
   });

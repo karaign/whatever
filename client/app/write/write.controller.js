@@ -1,12 +1,11 @@
 /* globals slug */
 class WriteController {
   title = 'Your title here';
+  tags = [];
 
-  constructor(Auth, $state, Post) {
-    Auth.isLoggedIn(loggedIn => {
-      if (!loggedIn) $state.go('login');
-    });
-    Auth.getCurrentUser(me => this.me = me);
+  constructor($state, Post, me) {
+    if (!me) $state.go('login');
+    this.me = me;
     this.Post = Post;
     this.state = $state;
   }
@@ -15,7 +14,7 @@ class WriteController {
   }
   submit() {
     this.Post.save({
-      body: this.editor.value(),
+      body: this.body,
       title: this.title,
       slug: this.slug || this.slugifyTitle(),
       tags: this.tags.map(t => t.text)

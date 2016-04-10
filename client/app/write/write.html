@@ -12,7 +12,7 @@
         pattern="^[a-z\d-]{0,}$" ng-pattern-restrict/>
       </div>
     </div>
-    <markdown-editor api="vm.editor"></markdown-editor>
+    <markdown-editor on-change="vm.body = value"></markdown-editor>
     <div class="form-group">
       <label for="tags">Tags</label>
       <tags-input ng-model="vm.tags"></tags-input>

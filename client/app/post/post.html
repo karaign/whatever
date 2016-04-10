@@ -17,9 +17,10 @@
       </span></p>
       <h4>Tags</h4>
       <p>
-        <span class="label label-default" ng-repeat="tag in vm.post.tags">{{tag}}</span>
+        <tag-list tags="vm.post.tags"></tag-list>
       </p>
-      <p>
+      <p ng-if="vm.editPermission">
+        <button class="btn btn-default" type="button" ng-if="vm.editPermission">Edit</button>
         <button type="button" class="btn btn-danger" ng-if="vm.editPermission" ng-click="vm.delete()">Delete</button>
       </p>
     </div>

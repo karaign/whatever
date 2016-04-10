@@ -6,11 +6,9 @@ angular.module('whateverApp')
       templateUrl: 'components/markdown-editor/markdown-editor.html',
       restrict: 'E',
       replace: true,
-      scope: {
-        api: '=',
-        config: '='
-      },
-      link: function(scope, element) {
+      scope: {config: '<', onChange: '&'},
+
+      link(scope, element, attrs) {
         const defaults = {
           initialValue: scope.model,
           promptURLs: true,
@@ -29,7 +27,8 @@ angular.module('whateverApp')
           angular.extend(defaults, scope.config || {})
         );
 
-        scope.api = mde;
+        scope.mde = mde;
+        mde.codemirror.on('change', () => scope.onChange({value: mde.value()}));
       }
     };
   });
