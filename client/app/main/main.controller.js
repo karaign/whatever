@@ -1,16 +1,10 @@
 class MainController {
+  nextPage = currentPage => this.Post.get({
+    page: currentPage + 1
+  }).$promise;
+
   constructor(Post, me) {
     this.Post = Post;
-  }
-
-  /**
-   * @param {Number} currentPage
-   * @returns {Promise}
-   */
-  nextPage(currentPage) {
-    return this.Post.get({
-      page: currentPage + 1
-    }).$promise;
   }
 }
 

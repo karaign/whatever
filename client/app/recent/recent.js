@@ -6,7 +6,7 @@ angular.module('whateverApp')
         templateUrl: '/app/recent/recent.html',
         controllerAs: 'vm',
         controller: function(Post) {
-          this.res = Post.recent();
+          this.nextPage = () => Post.recent().$promise;
         }
       });
   });

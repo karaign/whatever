@@ -57,6 +57,7 @@ export function removeEntity() {
  */
 export function handleError(res, statusCode = 500) {
   return function(err) {
+    console.log(err);
     res.status(err.status || statusCode).send(err);
   };
 }

@@ -82,38 +82,34 @@ export function getNewest(req, res) {
 }
 
 /**
- * Finds posts that have a certain tag
- * (or multiple tags, separated by commas)
+ * Finds posts that have a certain tag.
  */
-export function getByTags(req, res) {
+export function findByTag(req, res) {
   var page = Number(req.query.page);
-  var tags = req.params.tags.split(',');
-  
+
   Post.paginate({
-    tags: {$in: tags}
+    tags: req.params.tag
   }, {page})
     .then(respond(res))
     .catch(handleError(res));
 }
 
 /**
- * Finds posts by title and/or contents.
+ * Performs text search in the posts collection.
  */
 export function textSearch(req, res) {
-  var qs = req.query;
-  var page = Number(qs.page);
-  
-  function search(str) {
-    if (str) return {$text: {$search: str}};
-  }
-  
+  var page = Number(req.query.page);
+
   Post.paginate({
-    title: search(qs.title),
-    body: search(qs.body)
+    $text: {
+      $search: req.query.text,
+      $caseSensitive: Boolean(req.query.caseSensitive)
+    }
   }, {page})
     .then(respond(res))
     .catch(handleError(res));
 }
+
 
 /**
  * Retrieves a single post.

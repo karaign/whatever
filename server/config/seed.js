@@ -86,7 +86,7 @@ function randomPost(author) {
     .then(res => ({
       author,
       title: lorem.sentence(),
-      tags: lorem.words(5),
+      tags: lorem.words(5).split(' '),
       body: res
     }));
 }

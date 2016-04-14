@@ -2,6 +2,10 @@ class UserController {
   isSelf = false;
   isFollowed = false;
   isLoggedIn = true;
+  nextPage = currentPage => this.Post.byUser({
+    name: this.userName,
+    page: currentPage + 1
+  }).$promise;
 
   constructor($stateParams, Post, User, Modal, me) {
     this.Post = Post;
@@ -23,18 +27,6 @@ class UserController {
       }
     });
   }
-
-  /**
-   * @param {Number} currentPage
-   * @returns {Promise}
-   */
-  nextPage(currentPage) {
-    return this.Post.byUser({
-      name: this.userName,
-      page: currentPage + 1
-    }).$promise;
-  }
-
 
   /**
    * Shows a list of the user's followers.

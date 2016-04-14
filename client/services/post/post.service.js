@@ -11,6 +11,14 @@ function PostResource($resource) {
     recent: {
       method: 'GET',
       url: '/api/posts/recent'
+    },
+    byTag: {
+      method: 'GET',
+      url: '/api/posts/tag/:tag'
+    },
+    search: {
+      method: 'GET',
+      url: '/api/posts/search'
     }
   });
 }

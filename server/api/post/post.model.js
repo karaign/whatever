@@ -12,8 +12,7 @@ const slugOptions = {
 var PostSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
-    index: 'text'
+    required: true
   },
   slug: {
     type: String,

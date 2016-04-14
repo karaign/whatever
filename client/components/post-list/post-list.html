@@ -2,7 +2,7 @@
      infinite-scroll-distance="0.1"
      infinite-scroll-disabled="$ctrl.busy">
     <div class="alert alert-info" ng-if="$ctrl.noPosts">
-      Nothing to show here yet!
+      Nothing to show here!
     </div>
     <post-preview ng-repeat="post in $ctrl.posts" post="post">
     </post-preview>
