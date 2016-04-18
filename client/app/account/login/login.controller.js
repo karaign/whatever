@@ -1,13 +1,11 @@
 class LoginController {
-  constructor(Auth, $state, Post) {
+  constructor(Auth, $state) {
     this.user = {};
     this.errors = {};
     this.submitted = false;
 
     this.Auth = Auth;
     this.$state = $state;
-    
-    this.recentPosts = Post.recent();
   }
 
   login(form) {

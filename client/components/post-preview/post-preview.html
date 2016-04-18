@@ -1,34 +1,20 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">{{$ctrl.post.title}}</h3>
-  </div>
-  <div class="panel-body">
-    <div marked="$ctrl.post.cut"></div>
-  <div class="pull-right">
-        <small class="glyphicon glyphicon-tag" aria-label="Tags"></small>
-    <tag-list tags="$ctrl.post.tags"></tag-list>
-  </div>
-  </div>
-  <div class="panel-footer">
-  <div class="pull-left">
-  <time-label date="$ctrl.post.date"></time-label>
-        by <a ui-sref="user({name: $ctrl.post.author.name})">
-          {{$ctrl.post.author.displayName}}</a>
-</div>
-
-            <div class="btn-group pull-right">
-              <a class="btn btn-default" ui-sref="post({name: $ctrl.post.author.name, slug: $ctrl.post.slug})">Read more</a>
-          <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-heart-empty"></span> 0
-          </button>
-          <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-comment"></span> 0
-          </button>
-          <button type="button" class="btn btn-default">
-            <span class="caret"></span>
-          </button>
-        </div>
-
-<div class="clearfix"></div>
-  </div>
+<div>
+  <h3>
+    {{$ctrl.post.title}}
+    <br/>
+    <small>
+      <time-label date="$ctrl.post.date"></time-label>
+      <span ng-if="$ctrl.showAuthor"> by <a ui-sref="user({name: $ctrl.post.author.name})">
+        {{$ctrl.post.author.displayName}}</a></span>
+    </small>
+  </h3>
+  <div marked="$ctrl.post.cut"></div>
+  <p class="post-footer">
+    <a ui-sref="post({name: $ctrl.post.author.name, slug: $ctrl.post.slug})">Read more</a>
+    <span class="pull-right hidden-xs">
+      <small class="glyphicon glyphicon-tag" aria-label="Tags"></small>
+      <tag-list tags="$ctrl.post.tags"></tag-list>
+    </span>
+  </p>
+  <hr/>
 </div>

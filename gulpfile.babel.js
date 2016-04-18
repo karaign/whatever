@@ -4,7 +4,7 @@ import gulp from 'gulp';
 import path from 'path';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import http from 'http';
-import open from 'open';
+// import open from 'open';
 import lazypipe from 'lazypipe';
 import {stream as wiredep} from 'wiredep';
 import nodemon from 'nodemon';
@@ -312,9 +312,9 @@ gulp.task('start:server:prod', () => {
 });
 
 gulp.task('start:server', () => {
-  process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+  process.env.NODE_ENV = 'development';
   config = require(`./${serverPath}/config/environment`);
-  nodemon(`-w ${serverPath} ${serverPath}`)
+  nodemon(`--debug -w ${serverPath} ${serverPath}`)
     .on('log', onServerLog);
 });
 

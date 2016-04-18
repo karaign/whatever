@@ -3,6 +3,7 @@ import User from './user.model';
 import config from '../../config/environment';
 import jwt from 'jsonwebtoken';
 import HTTPError from 'node-http-error';
+import {pick, assign} from 'lodash';
 
 import {
   respond,
@@ -94,6 +95,17 @@ export function changePassword(req, res, next) {
         throw new HTTPError(403);
       }
     })
+    .then(respond(res, 204))
+    .catch(handleError(res, 422));
+}
+
+export function editProfile(req, res) {
+  var userId = req.user.id;
+  var newSettings = pick(req.body,
+    ['name', 'email', 'displayName', 'avatar', 'about']);
+
+  User.findById(userId).exec()
+    .then(user => assign(user, newSettings).save())
     .then(respond(res, 204))
     .catch(handleError(res, 422));
 }

@@ -23,6 +23,7 @@ var PostSchema = new mongoose.Schema({
   },
   tags: [{
     type: String,
+    match: /^[a-z0-9\-\*]+$/i,
     maxlength: 50
   }],
   comments: [String],
@@ -75,7 +76,7 @@ PostSchema
     }
 
     if (this.cut.length > 1000) {
-      this.cut = this.cut.slice(0, 1000) + ' **(...)**';
+      this.cut = this.cut.slice(0, 1000) + ' *(...)*';
     }
 
     this.tags = removeDuplicates(this.tags);

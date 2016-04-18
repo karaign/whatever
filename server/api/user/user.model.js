@@ -6,7 +6,7 @@ var UserSchema = new mongoose.Schema({
     type: String,
     lowercase: true,
     trim: true,
-    match: /[0-9a-z_\.]+/i,
+    match: /^[0-9a-z_\.]+$/i,
     minlength: 5,
     maxlength: 30,
     required: true,
@@ -232,7 +232,7 @@ UserSchema.methods = {
       }));
   },
   /**
-   * Attaches follower stats to profile and resolves a promise with i
+   * Attaches follower stats to profile and resolves a promise with it
    *
    * @return {Promise}
    * @api public

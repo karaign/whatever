@@ -4,7 +4,7 @@
     <div class="alert alert-info" ng-if="$ctrl.noPosts">
       Nothing to show here!
     </div>
-    <post-preview ng-repeat="post in $ctrl.posts" post="post">
+    <post-preview show-author="!$ctrl.hideAuthor" ng-repeat="post in $ctrl.posts" post="post">
     </post-preview>
     <p ng-if="!$ctrl.noPosts" class="text-muted">
       {{$ctrl.loadedAll ? "that's all!" : "loading..."}}

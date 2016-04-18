@@ -1,22 +1,25 @@
 <div class="container">
   <div class="row">
     <div class="col-md-3">
-      <h4>Advanced search</h4>
       <form ng-submit="vm.search()">
         <div class="form-group">
-          <label for="title">Search for</label>
-          <input id="title" type="text" class="form-control" ng-model="vm.text"/>
+          <label for="tags">Find by tags</label>
+          <tags-input allowed-tags-pattern="^[a-z0-9\-\*]+$" id="tags" ng-model="vm.tags"></tags-input>
         </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" ng-model="vm.caseSensitive"> Case sensitive
-          </label>
+        <div class="form-group">
+          <label for="by">Find by users</label>
+          <tags-input allowed-tags-pattern="^[0-9a-z_\.]+$" placeholder="Add a user" ng-model="vm.by" id="by"></tags-input>
         </div>
-        <button class="btn btn-default" type="submit">Search</button>
+        <div class="form-group">
+          <label for="text">Text search</label>
+          <input ng-model="vm.text" placeholder="Type something here" class="form-control" id="text" type="text">
+        </div>
+        <button class="btn btn-default" type="submit" name="button">Search</button>
       </form>
+      <span class="text-muted">Found {{vm.total}}</span>
     </div>
     <div class="col-md-9">
-      <post-list next-page="vm.nextPage"></post-list>
+      <post-list next-page="vm.nextPage" on-load="vm.total = res.total"></post-list>
     </div>
   </div>
 </div>

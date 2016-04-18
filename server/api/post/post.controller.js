@@ -73,43 +73,30 @@ export function getByUserAndSlug(req, res) {
 }
 
 /**
- * Retrieves newest posts by all users.
+ * Finds posts by author, tags, and/or text content.
  */
-export function getNewest(req, res) {
-  Post.paginate({}, {page: 1})
-    .then(respond(res))
-    .catch(handleError(res));
-}
-
-/**
- * Finds posts that have a certain tag.
- */
-export function findByTag(req, res) {
+export function search(req, res) {
   var page = Number(req.query.page);
+  var {tags, by, text} = req.query;
 
-  Post.paginate({
-    tags: req.params.tag
-  }, {page})
+  function query(users = []) {
+    var q = {};
+    if (tags) q.tags = {$in: tags.split(',')};
+    if (text) q.$text = {$search: text};
+    if (users.length) q.author = {$in: users};
+    return Post.paginate(q, {page});
+  }
+
+  var promise = by ?
+    User.find({
+      name: {$in: by.split(',')}
+    }).then(query)
+    : query();
+
+  promise
     .then(respond(res))
     .catch(handleError(res));
 }
-
-/**
- * Performs text search in the posts collection.
- */
-export function textSearch(req, res) {
-  var page = Number(req.query.page);
-
-  Post.paginate({
-    $text: {
-      $search: req.query.text,
-      $caseSensitive: Boolean(req.query.caseSensitive)
-    }
-  }, {page})
-    .then(respond(res))
-    .catch(handleError(res));
-}
-
 
 /**
  * Retrieves a single post.

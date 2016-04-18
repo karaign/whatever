@@ -29,12 +29,15 @@
                 <span class="glyphicon glyphicon-minus"></span> Unfollow
               </button>
         </span>
+        <a ui-sref="search({by: vm.user.name})" title="Search" class="btn btn-default">
+          <span class="glyphicon glyphicon-search"></span>
+        </a>
       </p>
       <p class="text-success" ng-if="vm.isSelf">This is you.</p>
       <p class="text-info" ng-if="!vm.isLoggedIn"><a ui-sref="login()">Log in</a> or <a ui-sref="signup()">sign up</a> to be able to follow users.</p>
     </div>
     <div class="col-md-9">
-      <post-list next-page="vm.nextPage"></post-list>
+      <post-list hide-author="true" next-page="vm.nextPage"></post-list>
     </div>
   </div>
 </div>

@@ -5,15 +5,11 @@ import * as auth from '../../auth/auth.service';
 var router = new Router();
 
 router.get('/', auth.isAuthenticated(), controller.getFeed);
-router.get('/recent', controller.getNewest);
 
 router.get('/by/:name', controller.getByUser);
 router.get('/by/:name/:slug', controller.getByUserAndSlug);
 
-//router.get('/tag', controller.getPopularTags);//
-router.get('/tag/:tag', controller.findByTag);
-
-router.get('/search', controller.textSearch);
+router.get('/search', controller.search);
 
 router.get('/:id', controller.show);
 router.post('/', auth.isAuthenticated(), controller.create);

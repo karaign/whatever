@@ -50,5 +50,5 @@ angular.module('whateverApp')
   .component('postList', {
     controller: PostListController,
     templateUrl: 'components/post-list/post-list.html',
-    bindings: {loadNextPage: '<nextPage', onLoad: '&'}
+    bindings: {loadNextPage: '<nextPage', onLoad: '&', hideAuthor: '<'}
   });
