@@ -72,6 +72,9 @@ export default function(app) {
     app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
     app.use(express.static(app.get('appPath')));
     app.use(morgan('dev'));
+    app.use(function(err, req, res, next) {
+      res.status(err.status || 500).send();
+    });
   }
 
   if ('development' === env) {

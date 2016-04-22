@@ -1,20 +1,14 @@
-import Post from './post.model';
-import User from '../user/user.model';
-
-import HTTPError from 'node-http-error';
+import * as service from './post.service';
 
 import {
   respond,
   handleError,
-  checkEntity,
-  removeEntity,
-  saveUpdates
+  checkEntity
 } from '../util';
 
-/**
- * Returns a function that throws 403 (Forbidden) error
- * if the user isn't an admin or the post's author.
- */
+import HTTPError from 'node-http-error';
+var {ValidationError} = require('mongoose').Error;
+
 function checkUserRights(user) {
   return function(post) {
     if (post.author.equals(user._id) ||
@@ -26,16 +20,41 @@ function checkUserRights(user) {
   };
 }
 
+export function show(req, res, next) {
+  service.getPost(req.params.id)
+    .then(checkEntity())
+    .then(respond(res))
+    .catch(handleError(res));
+}
 
-/**
- * Retrieves a user's personal feed.
- */
+export function create(req, res) {
+  var data = req.body;
+  data.author = req.user;
+  service.createPost(data)
+    .then(respond(res))
+    .catch(ValidationError, handleError(res, 422))
+    .catch(handleError(res));
+}
+
+export function edit(req, res) {
+  service.getPost(req.params.id)
+    .then(checkUserRights(req.user))
+    .then(() => service.editPost(req.params.id, req.body))
+    .then(respond(res))
+    .catch(ValidationError, handleError(res, 422))
+    .catch(handleError(res));
+}
+
+export function destroy(req, res) {
+  service.deletePost(req.params.id)
+    .then(respond(res, 204))
+    .catch(handleError(res));
+}
+
 export function getFeed(req, res) {
   var page = Number(req.query.page);
 
-  Post.paginate({
-    author: {$in: req.user.following}
-  }, {page})
+  service.getFeed(req.user, page)
     .then(respond(res))
     .catch(handleError(res));
 }
@@ -47,9 +66,8 @@ export function getByUser(req, res) {
   var name = req.params.name;
   var page = Number(req.query.page);
 
-  User.findOne({name}).exec()
+  service.getPostsByUserName(name, page)
     .then(checkEntity())
-    .then(author => Post.paginate({author}, {page}))
     .then(respond(res))
     .catch(handleError(res));
 }
@@ -58,15 +76,10 @@ export function getByUser(req, res) {
  * Retrieves a single post by author and slug.
  */
 export function getByUserAndSlug(req, res) {
+  var name = req.params.name;
   var slug = req.params.slug;
 
-  User.findOne({name: req.params.name}).exec()
-    .then(checkEntity())
-    .then(author =>
-      Post.findOne({author, slug})
-      .populate('author')
-      .exec()
-    )
+  service.getPostByUserNameAndSlug(name, slug)
     .then(checkEntity())
     .then(respond(res))
     .catch(handleError(res));
@@ -77,68 +90,7 @@ export function getByUserAndSlug(req, res) {
  */
 export function search(req, res) {
   var page = Number(req.query.page);
-  var {tags, by, text} = req.query;
-
-  function query(users = []) {
-    var q = {};
-    if (tags) q.tags = {$in: tags.split(',')};
-    if (text) q.$text = {$search: text};
-    if (users.length) q.author = {$in: users};
-    return Post.paginate(q, {page});
-  }
-
-  var promise = by ?
-    User.find({
-      name: {$in: by.split(',')}
-    }).then(query)
-    : query();
-
-  promise
+  service.searchPosts(req.query, page)
     .then(respond(res))
-    .catch(handleError(res));
-}
-
-/**
- * Retrieves a single post.
- */
-export function show(req, res) {
-  Post.findById(req.params.id).exec()
-    .then(checkEntity())
-    .then(respond(res))
-    .catch(handleError(res));
-}
-
-/**
- * Creates a new post.
- */
-export function create(req, res) {
-  var post = new Post(req.body);
-  post.author = req.user;
-  post.date = Date.now();
-  post.save()
-    .then(respond(res, 201))
-    .catch(handleError(res));
-}
-
-// Updates an existing Post in the DB
-export function edit(req, res) {
-  if (req.body._id) {
-    delete req.body._id;
-  }
-  Post.findById(req.params.id).exec()
-    .then(checkEntity())
-    .then(checkUserRights(req.user))
-    .then(saveUpdates(req.body))
-    .then(respond(res))
-    .catch(handleError(res));
-}
-
-// Deletes a Post from the DB
-export function destroy(req, res) {
-  Post.findById(req.params.id).exec()
-    .then(checkEntity())
-    .then(checkUserRights(req.user))
-    .then(removeEntity())
-    .then(respond(res, 204))
     .catch(handleError(res));
 }

@@ -57,7 +57,7 @@ export function removeEntity() {
  */
 export function handleError(res, statusCode = 500) {
   return function(err) {
-    console.log(err);
+    console.error(err);
     res.status(err.status || statusCode).send(err);
   };
 }
@@ -76,4 +76,3 @@ export function checkEntity(statusCode = 404) {
     return entity;
   };
 }
-
