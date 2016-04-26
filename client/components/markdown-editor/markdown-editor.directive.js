@@ -1,7 +1,7 @@
 /* global SimpleMDE */
 
 angular.module('whateverApp')
-  .directive('markdownEditor', function() {
+  .directive('markdownEditor', function(marked) {
     return {
       templateUrl: 'components/markdown-editor/markdown-editor.html',
       restrict: 'E',
@@ -10,7 +10,7 @@ angular.module('whateverApp')
 
       link(scope, element, attrs) {
         const defaults = {
-          initialValue: scope.model,
+          previewRender: text => marked(text),
           promptURLs: true,
           forceSync: true,
           element: element.find('textarea')[0],

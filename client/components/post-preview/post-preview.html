@@ -6,11 +6,17 @@
       <time-label date="$ctrl.post.date"></time-label>
       <span ng-if="$ctrl.showAuthor"> by <a ui-sref="user({name: $ctrl.post.author.name})">
         {{$ctrl.post.author.displayName}}</a></span>
+      <span ng-if="$ctrl.post.responseTo" ng-init="_op = $ctrl.post.responseTo">
+        in response to <a ui-sref="post({name: _op.author.name, slug: _op.slug})">{{_op.title}}</a>
+      </span>
     </small>
   </h3>
   <div marked="$ctrl.post.cut"></div>
   <p class="post-footer">
     <a ui-sref="post({name: $ctrl.post.author.name, slug: $ctrl.post.slug})">Read more</a>
+    <span class="text-muted">
+      <span class="glyphicon glyphicon-heart"></span> {{$ctrl.post.rating}}
+    </span>
     <span class="pull-right hidden-xs">
       <small class="glyphicon glyphicon-tag" aria-label="Tags"></small>
       <tag-list tags="$ctrl.post.tags"></tag-list>

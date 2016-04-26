@@ -51,6 +51,56 @@ export function deletePost(id) {
 }
 
 /**
+ * @param {string} id
+ * @param {object} user
+ * @returns {Promise}
+ */
+export function likePost(id, user) {
+  return Post.findById(id)
+    .populate('author')
+    .exec()
+    .then(post => {
+      if (!post) {
+        return null;
+      }
+      post.likedBy.addToSet(user._id);
+      return post.save();
+    });
+}
+
+/**
+ * @param {string} id
+ * @param {object} user
+ * @returns {Promise}
+ */
+export function unlikePost(id, user) {
+  return Post.findById(id)
+    .populate('author')
+    .exec()
+    .then(post => {
+      if (!post) {
+        return null;
+      }
+      post.likedBy.remove(user);
+      return post.save();
+    });
+}
+
+
+/**
+ * Finds responses to a certain post.
+ * @param {string} id
+ * @param {number} page
+ * @returns {Promise}
+ */
+export function getResponsesTo(id, page) {
+  return Post.findById(id)
+    .then(post => post && Post.paginate({
+      responseTo: id
+    }, {page}));
+}
+
+/**
  * Constructs a user's personal feed.
  * @param {object} user
  * @param {number} page

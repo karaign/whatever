@@ -11,6 +11,11 @@ router.get('/by/:name/:slug', controller.getByUserAndSlug);
 
 router.get('/search', controller.search);
 
+router.put('/:id/like', auth.isAuthenticated(), controller.like);
+router.put('/:id/unlike', auth.isAuthenticated(), controller.unlike);
+
+router.get('/:id/responses', controller.getResponses);
+
 router.get('/:id', controller.show);
 router.post('/', auth.isAuthenticated(), controller.create);
 router.put('/:id', auth.isAuthenticated(), controller.edit);

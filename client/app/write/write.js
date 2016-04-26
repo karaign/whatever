@@ -3,6 +3,7 @@ angular.module('whateverApp')
     $stateProvider
       .state('write', {
         url: '/write',
+        params: {responseTo: null},
         templateUrl: 'app/write/write.html',
         controller: 'WriteController',
         controllerAs: 'vm',

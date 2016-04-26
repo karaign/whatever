@@ -2,7 +2,11 @@
   <div class="row">
     <div class="col-md-9">
       <div class="page-header">
-        <h1>{{vm.post.title}}</h1>
+        <h1>{{vm.post.title}}
+          <small ng-if="vm.responseTo">response to <a ui-sref="post({name: vm.responseTo.author.name, slug: vm.responseTo.slug})">
+            {{vm.responseTo.title}}
+          </a></small>
+        </h1>
       </div>
       <div marked="vm.post.body">
       </div>
@@ -19,10 +23,28 @@
       <p>
         <tag-list tags="vm.post.tags"></tag-list>
       </p>
+      <p>
+        <button type="button" ng-click="vm.isLiked ? vm.unlike() : vm.like()" class="btn btn-default btn-block" ng-class="{active: vm.isLiked}">
+          <span class="glyphicon glyphicon-heart"></span>
+          {{vm.post.rating}}
+        </button>
+      </p>
       <p ng-if="vm.editPermission">
         <button class="btn btn-default" type="button" ng-if="vm.editPermission">Edit</button>
         <button type="button" class="btn btn-danger" ng-if="vm.editPermission" ng-click="vm.delete()">Delete</button>
       </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-9">
+      <h3>Responses ({{vm.totalResponses}})
+          <a class="btn btn-success" ui-sref="write({responseTo: vm.post})">
+            <span class="glyphicon glyphicon-plus"></span>
+            Write a response
+          </a>
+      </h3>
+      <hr>
+      <post-list next-page="vm.nextPage" on-load="vm.totalResponses = res.total"></post-list>
     </div>
   </div>
 </div>

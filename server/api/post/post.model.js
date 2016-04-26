@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
+var {ObjectId} = mongoose.Schema;
 import makeSlug from 'slug';
 import {uniq as removeDuplicates, isEmpty} from 'lodash';
 import paginatePlugin from 'mongoose-paginate';
+import autopopulatePlugin from 'mongoose-autopopulate';
 import {postsPerPage} from '../../config/environment';
 
 const slugOptions = {
@@ -10,6 +12,14 @@ const slugOptions = {
 };
 
 var PostSchema = new mongoose.Schema({
+  responseTo: {
+    type: ObjectId,
+    ref: 'Post',
+    default: null,
+    autopopulate: {
+      select: 'title slug author'
+    }
+  },
   title: {
     type: String,
     required: true
@@ -26,15 +36,21 @@ var PostSchema = new mongoose.Schema({
     match: /^[a-z0-9\-\*]+$/i,
     maxlength: 50
   }],
-  comments: [String],
+  likedBy: [{
+    type: ObjectId,
+    ref: 'User'
+  }],
   body: {
     type: String,
     required: true,
     index: 'text'
   },
   author: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User'
+    type: ObjectId,
+    ref: 'User',
+    autopopulate: {
+      select: 'name displayName'
+    }
   },
   date: {
     type: Date,
@@ -44,23 +60,22 @@ var PostSchema = new mongoose.Schema({
 
 paginatePlugin.paginate.options = {
   select: '-body -comments',
-  populate: 'author',
   sort: {date: 'descending'},
   limit: postsPerPage
 };
 
-PostSchema.plugin(paginatePlugin);
+PostSchema
+  .plugin(paginatePlugin)
+  .plugin(autopopulatePlugin)
+  .set('toJSON', {
+    virtuals: true
+  });
 
-// Don't serialize the actual author document,
-// just the public profile
-PostSchema.set('toJSON', {
-  transform(doc, ret, options) {
-    if (typeof ret.author === 'object') {
-      ret.author = doc.author.profile;
-    }
-    return ret;
-  }
-});
+PostSchema
+  .virtual('rating')
+  .get(function() {
+    return this.likedBy && this.likedBy.length;
+  });
 
 PostSchema
   .pre('validate', function(next) {
@@ -89,7 +104,7 @@ PostSchema
   .path('slug')
   .validate(function(value, respond) {
     this.constructor.findOne({author: this.author, slug: value}).exec()
-      .then(post => respond(post ? false : true));
+      .then(post => respond(post && !post.equals(this) ? false : true));
   });
 
 export default mongoose.model('Post', PostSchema);

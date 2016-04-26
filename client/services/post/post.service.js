@@ -1,5 +1,7 @@
 function PostResource($resource) {
-  return $resource('/api/posts/:id', {id: '@_id'}, {
+  var Post = $resource('/api/posts/:id/:controller', {
+    id: '@_id'
+  }, {
     byUser: {
       method: 'GET',
       url: '/api/posts/by/:name/'
@@ -19,8 +21,28 @@ function PostResource($resource) {
     search: {
       method: 'GET',
       url: '/api/posts/search'
+    },
+    like: {
+      method: 'PUT',
+      params: {controller: 'like'}
+    },
+    unlike: {
+      method: 'PUT',
+      params: {controller: 'unlike'}
+    },
+    getResponses: {
+      method: 'GET',
+      params: {controller: 'responses'}
     }
   });
+
+  angular.extend(Post.prototype, {
+    $getResponses({page}, callback, onError) {
+      return Post.getResponses({id: this._id, page}, callback, onError);
+    }
+  });
+
+  return Post;
 }
 
 angular.module('whateverApp')

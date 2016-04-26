@@ -1,5 +1,12 @@
 <div class="container">
   <form ng-submit="vm.submit()">
+    <uib-alert ng-if="vm.responseTo" close="vm.responseTo = null" type="info">
+      You're now writing a response to <a class="alert-link"
+      ui-sref="post({name: vm.responseTo.author.name, slug: vm.responseTo.slug})">
+      {{vm.responseTo.title}}
+      </a> by <a class="alert-link" ui-sref="user({name: vm.responseTo.author.name})">
+        {{vm.responseTo.author.displayName}}</a>. Click X to cancel.
+    </uib-alert>
     <div class="form-group">
       <label for="title">Title</label>
       <input type="text" id="title" class="form-control" ng-model="vm.title"/>

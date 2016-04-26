@@ -17,20 +17,23 @@
       </p>
 
       <p ng-if="vm.isLoggedIn && !vm.isSelf">
-        <button class="btn btn-default" ng-if="!vm.isFollowed" ng-click="vm.follow()">
+        <button class="btn btn-block btn-default" ng-if="!vm.isFollowed" ng-click="vm.follow()">
               <span class="glyphicon glyphicon-plus"></span>
               Follow
             </button>
         <span ng-if="vm.isFollowed" ng-mouseover="_over = true" ng-mouseleave="_over = false">
-              <button class="btn btn-success" ng-show="!_over">
+              <button class="btn btn-block btn-success" ng-show="!_over">
                 <span class="glyphicon glyphicon-ok"></span> Following
         </button>
-        <button class="btn btn-danger" ng-show="_over" ng-click="vm.unfollow()">
+        <button class="btn btn-block btn-danger" ng-show="_over" ng-click="vm.unfollow()">
                 <span class="glyphicon glyphicon-minus"></span> Unfollow
               </button>
         </span>
-        <a ui-sref="search({by: vm.user.name})" title="Search" class="btn btn-default">
+      </p>
+      <p>
+        <a ui-sref="search({by: vm.user.name})" title="Search" class="btn btn-block btn-default">
           <span class="glyphicon glyphicon-search"></span>
+          Search posts
         </a>
       </p>
       <p class="text-success" ng-if="vm.isSelf">This is you.</p>

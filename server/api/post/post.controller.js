@@ -30,6 +30,7 @@ export function show(req, res, next) {
 export function create(req, res) {
   var data = req.body;
   data.author = req.user;
+
   service.createPost(data)
     .then(respond(res))
     .catch(ValidationError, handleError(res, 422))
@@ -51,6 +52,30 @@ export function destroy(req, res) {
     .catch(handleError(res));
 }
 
+export function like(req, res) {
+  service.likePost(req.params.id, req.user)
+    .then(checkEntity())
+    .then(respond(res))
+    .catch(handleError(res));
+}
+
+
+export function unlike(req, res) {
+  service.unlikePost(req.params.id, req.user)
+    .then(checkEntity())
+    .then(respond(res))
+    .catch(handleError(res));
+}
+
+export function getResponses(req, res) {
+  var page = Number(req.query.page);
+
+  service.getResponsesTo(req.params.id, page)
+    .then(checkEntity())
+    .then(respond(res))
+    .catch(handleError(res));
+}
+
 export function getFeed(req, res) {
   var page = Number(req.query.page);
 
@@ -59,9 +84,6 @@ export function getFeed(req, res) {
     .catch(handleError(res));
 }
 
-/**
- * Retrieves posts by a specific user.
- */
 export function getByUser(req, res) {
   var name = req.params.name;
   var page = Number(req.query.page);
@@ -72,9 +94,6 @@ export function getByUser(req, res) {
     .catch(handleError(res));
 }
 
-/**
- * Retrieves a single post by author and slug.
- */
 export function getByUserAndSlug(req, res) {
   var name = req.params.name;
   var slug = req.params.slug;
@@ -85,12 +104,22 @@ export function getByUserAndSlug(req, res) {
     .catch(handleError(res));
 }
 
-/**
- * Finds posts by author, tags, and/or text content.
- */
 export function search(req, res) {
+  var qs = req.query;
   var page = Number(req.query.page);
-  service.searchPosts(req.query, page)
+  var tags, by, text;
+
+  if (qs.tags) {
+    tags = qs.tags.split(',');
+  }
+  if (qs.by) {
+    by = qs.by.split(',');
+  }
+  if (qs.text) {
+    text = qs.text;
+  }
+
+  service.searchPosts({tags, by, text}, page)
     .then(respond(res))
     .catch(handleError(res));
 }

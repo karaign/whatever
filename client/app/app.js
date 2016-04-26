@@ -27,7 +27,7 @@ angular.module('whateverApp', [
 
     markedProvider.setRenderer({
       image(href, title, text) {
-        return `<img class="img-responsive" src="${href}" alt="${text}" title="${title || text}"/>`;
+        return `<img class="img-responsive" src="${href}" alt="${text}" title="${title || text}">`;
       }
     });
   });
