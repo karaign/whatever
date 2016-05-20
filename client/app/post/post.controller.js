@@ -20,6 +20,11 @@ class PostController {
       this.post.$delete(() => $state.go('main'))
     );
 
+    this.openEditor = Modal.editor(text => {
+      this.post.body = text;
+      this.post.$update();
+    });
+
     this.post.$promise.then(post => {
       if (this.Auth.isAdmin() || me && me._id == post.author._id) {
         this.editPermission = true;
@@ -32,6 +37,10 @@ class PostController {
 
   delete() {
     this.confirmDelete(this.post.title);
+  }
+
+  edit() {
+    this.openEditor(this.post.title, this.post.body);
   }
 
   like() {

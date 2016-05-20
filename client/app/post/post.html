@@ -30,8 +30,8 @@
         </button>
       </p>
       <p ng-if="vm.editPermission">
-        <button class="btn btn-default" type="button" ng-if="vm.editPermission">Edit</button>
-        <button type="button" class="btn btn-danger" ng-if="vm.editPermission" ng-click="vm.delete()">Delete</button>
+        <button class="btn btn-default" type="button" ng-click="vm.edit()">Edit</button>
+        <button type="button" class="btn btn-danger" ng-click="vm.delete()">Delete</button>
       </p>
     </div>
   </div>

@@ -59,14 +59,16 @@ var PostSchema = new mongoose.Schema({
 });
 
 paginatePlugin.paginate.options = {
-  select: '-body -comments',
+  select: '-body',
   sort: {date: 'descending'},
   limit: postsPerPage
 };
 
 PostSchema
   .plugin(paginatePlugin)
-  .plugin(autopopulatePlugin)
+  .plugin(autopopulatePlugin);
+
+PostSchema
   .set('toJSON', {
     virtuals: true
   });
@@ -78,7 +80,7 @@ PostSchema
   });
 
 PostSchema
-  .pre('validate', function(next) {
+  .post('validate', function(next) {
 
     if (isEmpty(this.slug)) {
       this.slug = makeSlug(this.title, slugOptions);

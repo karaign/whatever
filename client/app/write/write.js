@@ -7,6 +7,7 @@ angular.module('whateverApp')
         templateUrl: 'app/write/write.html',
         controller: 'WriteController',
         controllerAs: 'vm',
+        authenticate: true,
         resolve: {me: Auth => Auth.resolveUser()}
       });
   });

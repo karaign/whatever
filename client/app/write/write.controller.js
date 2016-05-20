@@ -4,7 +4,6 @@ class WriteController {
   tags = [];
 
   constructor($state, $stateParams, Post, me) {
-    if (!me) $state.go('login');
     this.me = me;
     this.Post = Post;
     this.state = $state;

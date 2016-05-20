@@ -6,6 +6,7 @@ angular.module('whateverApp')
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
         controllerAs: 'vm',
+        // authenticate: true,
         resolve: {'me': Auth => Auth.resolveUser()}
       });
   });

@@ -4,14 +4,16 @@ angular.module('whateverApp')
      * Opens a modal
      * @param  {Object} scope      - an object to be merged with modal's scope
      * @param  {String} modalClass - (optional) class(es) to be applied to the modal
+     * @param  {String} size
      * @return {Object}            - the instance $modal.open() returns
      */
-    function openModal(scope = {}, modalClass = 'modal-default') {
+    function openModal(scope = {}, modalClass = 'modal-default', size) {
       var modalScope = $rootScope.$new();
 
       angular.extend(modalScope, scope);
 
       return $uibModal.open({
+        size: size,
         templateUrl: 'services/modal/modal.html',
         windowClass: modalClass,
         scope: modalScope
@@ -22,8 +24,45 @@ angular.module('whateverApp')
     return {
 
       /**
+       * Create a function to open a pop-up markdown editor
+       * @param {Function} callback
+       * @return {Function}
+       */
+      editor(callback = angular.noop) {
+        /**
+         * Open a markdown editor
+         * @param {string} title
+         * @param {string} initialValue
+         * @param {Function} callback
+         */
+        return function(title, initialValue = '') {
+          var editor = openModal({
+            modal: {
+              dismissable: false,
+              title: `Edit ${title}`,
+              value: initialValue,
+              html: `<markdown-editor
+               config="{initialValue: modal.value}" on-change="modal.value = value"></markdown-editor>`,
+              buttons: [{
+                classes: 'btn btn-primary',
+                text: 'Confirm',
+                click: (e, scope) => editor.close(scope.value)
+              }, {
+                classes: 'btn btn-default',
+                text: 'Cancel',
+                click: e => editor.dismiss(e)
+              }]
+            }
+          }, 'modal-default', 'lg');
+
+          editor.result.then(text => {
+            callback(text);
+          });
+        };
+      },
+
+      /**
        * Create a function to show a list of users
-       * @param  {Array} users
        * @return {Function}
        */
       userList() {
@@ -53,7 +92,7 @@ angular.module('whateverApp')
                 click: e => userList.close(e)
               }]
             }
-          }, 'modal-user-list');
+          });
         };
       },
 

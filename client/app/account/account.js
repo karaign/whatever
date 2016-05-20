@@ -28,8 +28,14 @@ angular.module('whateverApp')
           var referrer = $state.params.referrer ||
                           $state.current.referrer ||
                           'main';
+          var params = {};
+
+          if (referrer == $state.current.referrer) {
+            params = $state.current.refParams;
+          }
+
           Auth.logout();
-          $state.go(referrer);
+          $state.go(referrer, params);
         }
       })
       .state('signup', {
@@ -46,10 +52,11 @@ angular.module('whateverApp')
         authenticate: true
       });
   })
-  .run(function($rootScope) {
+  .run(function($rootScope, $state) {
     $rootScope.$on('$stateChangeStart', function(event, next, nextParams, current) {
       if (next.name === 'logout' && current && current.name && !current.authenticate) {
         next.referrer = current.name;
+        next.refParams = $state.params;
       }
     });
   });

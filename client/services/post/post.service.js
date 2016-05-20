@@ -2,6 +2,9 @@ function PostResource($resource) {
   var Post = $resource('/api/posts/:id/:controller', {
     id: '@_id'
   }, {
+    update: {
+      method: 'PUT'
+    },
     byUser: {
       method: 'GET',
       url: '/api/posts/by/:name/'

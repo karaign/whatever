@@ -14,12 +14,12 @@ export function getPost(id) {
 
 /**
  * Creates a new post.
- * @param {string} id
+ * @param {object} data
  * @returns {Promise}
  */
 export function createPost(data) {
   data.date = Date.now();
-  return Post.create(data);
+  return new Post(data).save();
 }
 
 /**
@@ -27,7 +27,6 @@ export function createPost(data) {
  * If no post is found, the promise resolves to null.
  * @param {string} id
  * @param {object} data
- * @param {function} [checkPermission]
  * @returns {Promise}
  */
 export function editPost(id, data) {
@@ -139,8 +138,8 @@ export function getPostByUserNameAndSlug(name, slug) {
 /**
  * Finds posts author, tags and/or text content.
  * @param {object} query
- * @param {string[]} [query.by]
  * @param {string[]} [query.tags]
+ * @param {string[]} [query.by]
  * @param {string}   [query.text]
  * @param {number} page
  * @returns {Promise}
