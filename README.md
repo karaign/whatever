@@ -1,3 +1,5 @@
+**The contents of this repository are years old and full of secutrity issues. Please don't actually try to run this.**
+
 # whatever
 
 This project was generated with the [Angular Full-Stack Generator](https://github.com/DaftMonk/generator-angular-fullstack) version 3.3.0.
